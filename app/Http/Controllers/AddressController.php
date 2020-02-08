@@ -95,7 +95,7 @@ class AddressController extends Controller
             'type'      =>'string|max:255',
         ]);
           Address::find($id)->update($request->all());
-          return redirect()->route('contacts.index')->with('success','Address update success');
+          return redirect()->route('contacts.details')->with('success','Address update success');
     }
 
     /**
@@ -107,6 +107,6 @@ class AddressController extends Controller
     public function destroy($id)
     {
         Address::find($id)->delete();
-        return redirect()->route('contacts.index')->with('success','Address deleted success'); 
+        return redirect()->route('contacts.details')->with('success','Address deleted success'); 
     }
 }

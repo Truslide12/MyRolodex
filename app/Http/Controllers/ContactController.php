@@ -54,8 +54,8 @@ class ContactController extends Controller
         //   dump($data->toArray());
         $contact_id = $data->id;
        
-        dump($data->id);
-        dump($contact_id);
+        // dump($data->id);
+        // dump($contact_id);
           return view('contacts.createAddress')->with('contact_id', $contact_id);
           //response()->json(array('success' => true, 'last_insert_id' => $data->id), 200);
       }

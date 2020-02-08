@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container">
+<div style="width:90%; margin:30px; padding: 0 0 0 5%;">
     <div>
         <div style="margin-top:10px;">
             <h3>Contacts</h3>
