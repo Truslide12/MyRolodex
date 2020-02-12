@@ -16,11 +16,11 @@
     <table class="table table-hover col-sm-12">
         <thead>
         <tr class="row" style="text-align:center">
-            <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'firstName', 'currentCol' => $currentCol , 'sort_order' => $sort_order] )}}">First Name</a></th>
-            <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'lastName', 'currentCol' => $currentCol, 'sort_order' => $sort_order] )}}">Last Name</a></th>
-            <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'email', 'currentCol' => $currentCol, 'sort_order' => $sort_order] )}}">Email</a></th>
-            <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'phone', 'currentCol' => $currentCol, 'sort_order' => $sort_order] )}}">Phone</a></th>
-            <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'birthday', 'currentCol' => $currentCol, 'sort_order' => $sort_order] )}}">Birthday</a></th>
+            <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'firstName', 'currentField' => $currentField,'dir' => $dir ] )}}">First Name</a></th>
+            <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'lastName', 'currentField' => $currentField, 'dir' => $dir ] )}}">Last Name</a></th>
+            <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'email', 'currentField' => $currentField, 'dir' => $dir ] )}}">Email</a></th>
+            <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'phone', 'currentField' => $currentField, 'dir' => $dir ] )}}">Phone</a></th>
+            <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'birthday', 'currentField' => $currentField, 'dir' => $dir ] )}}">Birthday</a></th>
             <th class="col-sm-3">Action</th>
         </tr>
         </thead>
@@ -48,6 +48,6 @@
         </tbody>
     </table>
     </div>
-    {{ $contacts->links() }}
+    {{-- {{ $contacts->links() }} --}}
 </div>
 @endsection 

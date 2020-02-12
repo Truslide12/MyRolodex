@@ -16,7 +16,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::all()->sortBy('firstName');//->simplePaginate(10);
+        $contacts = Contact::orderBy('firstName')->simplePaginate(10);
         return view('contacts.index', ['contacts' => $contacts]);
               // ->with("i", (request()->input('page',1) -1) *5);
     }
@@ -41,13 +41,15 @@ class ContactController extends Controller
     {
         //dump(create($request->toArray()));
         
+        // create birthday string from user dropbox input
+        $birthday = 
         $request->validate
         ([
             'firstName'=>'required|string|max:255',
             'lastName'=>'required|string|max:255',
             'email'=>'required|unique:contacts|string|max:255',
             'phone'=>'nullable|string|max:255',
-            'birthday'=>'nullable|string|max:255',
+            // 'birthday'=>'nullable|string|max:255',
             'number'    =>'integer',
             'street'    =>'required|string|max:255',
             'city'      =>'required|string|max:255',
@@ -56,30 +58,23 @@ class ContactController extends Controller
             'type'      =>'string|max:255',
           ]);
         //   dump($request->toArray());
-        $data = Contact::create(
-            [
-                'firstName'=>$request->firstName,
-                'lastName'=>$request->firstName,
-                'email'=>$request->firstName,
-                'phone'=>$request->firstName,
-                'birthday'=>$request->firstName,
-            ]);
-            
-        //   dump($data->toArray());
-        $contact_id = $data->id;
+        $contact = Contact::create([
+            'firstName'=>$request->firstName,
+            'lastName'=>$request->lastName,
+            'email'=>$request->email,
+            'phone'=>$request->phone,
+            'birthday'=>$birthday,
+        ]);
+        $contact->addresses()->attach([
+            'number'=>$request->number,
+            'street'=>$request->street,
+            'city'=>$request->city,
+            'state'=>$request->state,
+            'zip'=>$request->zip,
+            'type'=>$request->type, 
+        ]);
 
-        Address::Create(
-            [
-                'number'=>$request->number,
-                'street'=>$request->street,
-                'city'=>$request->city,
-                'state'=>$request->state,
-                'zip'=>$request->zip,
-                'type'=>$request->type,
-                'contact_id'=>$request->contact_id,
-            ]);
-
-        return view('contacts.createAddress')->with('contact_id', $contact_id);
+        return view('contacts.details')->with('contact', $contact);
       }
 
     /**
@@ -168,49 +163,43 @@ class ContactController extends Controller
         return view('contacts.createAddress')->with('contact_id', $contact_id);
     }
 
-    public function sort($column, $currentCol , $sort_order)
+    public function sort($field, $currentField , $dir)
     {
-        // dump($column);
-        // dump($currentCol);
-        // dump($sort_order);
+        $validFields = Contact::getFields();
+        
+        if( in_array($field, $validFields) && in_array($currentField, $validFields) && in_array($dir, ['asc','desc']) ) {
+            
+            if ($field !== $currentField) 
+            {
+                return redirect()->route('contacts.sortUp', ['field' => $field]);
+            }
+            else if ($dir === 'asc')
+            {
+                return redirect()->route('contacts.sortDown', ['field' => $field]);
+            }
+            else if ($dir === 'desc')
+            {
+                return redirect()->route('contacts.sortUp', ['field' => $field]);
+            }
+            else {
+                print("Error: Invalid field and/or direction to sort by");
+            }
+        }
+    }
 
-        // Need to add validation to the inputs from the url line
-        if ($column !== ('firstname' || 'lastName' || 'email' || 'phone' || 'birthday'))
-        {
-            $column = 'firstName';
-        }
-        if ($currentCol !== ('firstname' || 'lastName' || 'email' || 'phone' || 'birthday'))
-        {
-            $currentCol = 'firstName';
-        }
-        if ($sort_order !== ('asc' || 'desc'))
-        {
-            $sort_order = 'asc';
-        }
+    public function sortUp ($field)
+    {
+        $data = Contact::orderBy($field, 'asc')->paginate(10);
+        $currentField = $field;
+        $dir = 'asc';
+        return view('contacts.sort', ['contacts' => $data, 'field' => $field, 'currentField' => $currentField, 'dir' => $dir]);
+    }
 
-        // get current order and column
-        $contacts = Contact::all();
-        if ($column !== $currentCol)
-        {
-            $contacts->orderBy($column, 'desc');
-            $sort_order = 'desc';
-            $currentCol = $column;
-        }
-        else if ($sort_order === 'asc')
-        {
-            $contacts->orderBy($column, 'desc');
-            $sort_order = 'desc';
-            $currentCol = $column;
-        }
-        else 
-        {
-        $contacts->orderBy($column, 'asc');
-            $sort_order = 'desc';
-            $currentCol = $column;
-        }
-        $contacts->simplePaginate(10);
-        // determine if order should be asc or desc
-        // sort by asc or desc accordingly
-        return view('contacts.sort', ['contacts' => $contacts, 'currentCol' => $column, 'sort_order' => $sort_order]);
+    public function sortDown ($field)
+    {
+        $data = Contact::orderBy($field, 'desc')->paginate(10);
+        $currentField = $field;
+        $dir = 'desc';
+        return view('contacts.sort', ['contacts' => $data, 'field' => $field, 'currentField' => $currentField, 'dir' => $dir]);
     }
 }

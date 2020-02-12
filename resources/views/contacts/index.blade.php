@@ -24,11 +24,11 @@
         <table class="table table-hover col-sm-12">
             <thead>
                 <tr class="row" style="text-align:center">
-                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'firstName', 'currentCol' => 'firstName', 'sort_order' => 'asc'] )}}">First Name</a></th>
-                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'lastName', 'currentCol' => 'firstName', 'sort_order' => 'asc'] )}}">Last Name</a></th>
-                        <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'email', 'currentCol' => 'firstName', 'sort_order' => 'asc'] )}}">Email</a></th>
-                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'phone', 'currentCol' => 'firstName', 'sort_order' => 'asc'] )}}">Phone</a></th>
-                        <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['column' => 'birthday', 'currentCol' => 'firstName', 'sort_order' => 'asc'] )}}">Birthday</a></th>
+                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'firstName', 'currentField' => 'firstName', 'dir' => 'asc' ] )}}">First Name</a></th>
+                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'lastName', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Last Name</a></th>
+                        <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'email', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Email</a></th>
+                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'phone', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Phone</a></th>
+                        <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'birthday', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Birthday</a></th>
                         <th class="col-sm-3">Action</th>
                 </tr>
             </thead>
