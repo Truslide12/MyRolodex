@@ -12,4 +12,9 @@ class Contact extends Model
     {
         return $this->hasMany('App\Address');
     }
+
+    static function getFields()
+    {
+        return [ 'firstName', 'lastName', 'email', 'phone', 'birthday' ];
+    }
 }
