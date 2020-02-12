@@ -145,7 +145,7 @@ class ContactController extends Controller
         // dump($request->toArray());
         $query = $request->get('search');
         // dump($query);
-        $contacts = Contac::all()
+        $contacts = DB::table('contacts')
             ->where('firstName', 'like', '%' . $query . '%')
             ->orWhere('lastName', 'like', '%' . $query . '%')
             ->orWhere('phone', 'like', '%' . $query . '%')
