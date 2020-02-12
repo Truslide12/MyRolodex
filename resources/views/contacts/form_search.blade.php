@@ -5,7 +5,7 @@
                         <div class="input-group">
                         <input type="search" class="form-control" name="search" placeholder="search contacts">
                         </div>
-                        <div class="input-group-prepend">
+                        <div class="input-group-prepend" style="margin-top:20px;">
                                 <button class="btn btn-primary" type="submit">Search</button>
                         </div>
                 </form>
