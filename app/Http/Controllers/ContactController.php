@@ -143,15 +143,23 @@ class ContactController extends Controller
     public function postSearch(Request $request)
     {
         // dump($request->toArray());
-        $query = $request->get('search');
-        // dump($query);
-        $contacts = DB::table('contacts')
-            ->where('firstName', 'like', '%' . $query . '%')
-            ->orWhere('lastName', 'like', '%' . $query . '%')
-            ->orWhere('phone', 'like', '%' . $query . '%')
-            ->orWhere('email', 'like', '%' . $query . '%')
-            ->get();
+        // $query = $request->get('search');
+        // // dump($query);
+        // $contacts = DB::table('contacts')
+        //     ->where('firstName', 'like', '%' . $query . '%')
+        //     ->orWhere('lastName', 'like', '%' . $query . '%')
+        //     ->orWhere('phone', 'like', '%' . $query . '%')
+        //     ->orWhere('email', 'like', '%' . $query . '%')
+        //     ->get();
         // dump($contacts);
+        // Searching Contacts
+        $q = $request->input('search') . '%'; // NOTE: Append wildcard symbol "%"
+
+        $contacts = Contact::where('firstName','like',$q)
+              ->orWhere('lastName','like',$q)
+              ->orWhere('email','like',$q)
+              ->orWhere('phone','like',$q)
+              ->get();
         return view('contacts.postSearch', ['contacts' => $contacts]);
     }
 

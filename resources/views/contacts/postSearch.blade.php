@@ -7,7 +7,7 @@
 </div>
 @if(isset($contacts))
 <div class="container">
-<table class="table table-hover table-sm" style="margin-top:10px;">
+<table class="table table-hover table-sm" style="margin-top:50px;">
     <tr>
         <th width = "100px">First Name</a></th>
         <th width = "100px">Last Name <i class="fa fa-sort"></i></th>
