@@ -7,32 +7,34 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
+    <div class="col-xs-10 col-sm-10 col-md-10">
         <div class="form-group">
             <strong>First Name : </strong>
             {{ $contact->firstName}}
         </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Last Name : </strong>
+                {{ $contact->lastName}}
+            </div>
         <div class="form-group">
-            <strong>Last Name : </strong>
-            {{ $contact->lastName}}
+                <strong>Email : </strong>
+                {{ $contact->email}}
+            </div>
         </div>
-    <div class="form-group">
-            <strong>Email : </strong>
-            {{ $contact->email}}
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Phone : </strong>
+                {{ $contact->phone}}
+            </div>
         <div class="form-group">
-            <strong>Phone : </strong>
-            {{ $contact->phone}}
-        </div>
-    <div class="form-group">
-            <strong>Birthday : </strong>
-            {{ $contact->birthday}}
-        </div>
+                <strong>Birthday : </strong>
+                {{ $contact->birthday}}
+            </div>
+        </div class="col-xs-2 col-sm-2 col-md-2">
     </div>
+    <div>
+        <a class="btn btn-primary" href="{{ route('addresses.create', ['contact' => $contact])}}">Add Address</a>
     </div>
     <table class="table table-hover">
         <tr class="row">

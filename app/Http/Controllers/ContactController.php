@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Contact;
-use App\Address;
+
 
 class ContactController extends Controller
 {
@@ -16,7 +15,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = Contact::orderBy('firstName')->simplePaginate(10);
+        $contacts = Contact::orderBy('firstName')->paginate(10);
         return view('contacts.index', ['contacts' => $contacts]);
               // ->with("i", (request()->input('page',1) -1) *5);
     }
@@ -42,7 +41,8 @@ class ContactController extends Controller
         //dump(create($request->toArray()));
         
         // create birthday string from user dropbox input
-        $birthday = 
+        $birthday = ($request->year."-".$request->month."-".$request->day);
+        dump($birthday);
         $request->validate
         ([
             'firstName'=>'required|string|max:255',
@@ -50,12 +50,12 @@ class ContactController extends Controller
             'email'=>'required|unique:contacts|string|max:255',
             'phone'=>'nullable|string|max:255',
             // 'birthday'=>'nullable|string|max:255',
-            'number'    =>'integer',
-            'street'    =>'required|string|max:255',
-            'city'      =>'required|string|max:255',
-            'state'     =>'string|max:255',
-            'zip'       =>'integer',
-            'type'      =>'string|max:255',
+            // 'number'    =>'integer',
+            // 'street'    =>'required|string|max:255',
+            // 'city'      =>'required|string|max:255',
+            // 'state'     =>'string|max:255',
+            // 'zip'       =>'integer',
+            // 'type'      =>'string|max:255',
           ]);
         //   dump($request->toArray());
         $contact = Contact::create([
@@ -65,16 +65,17 @@ class ContactController extends Controller
             'phone'=>$request->phone,
             'birthday'=>$birthday,
         ]);
-        $contact->addresses()->attach([
-            'number'=>$request->number,
-            'street'=>$request->street,
-            'city'=>$request->city,
-            'state'=>$request->state,
-            'zip'=>$request->zip,
-            'type'=>$request->type, 
-        ]);
-
-        return view('contacts.details')->with('contact', $contact);
+        // $contact->addresses()->attach([
+        //     'number'=>$request->number,
+        //     'street'=>$request->street,
+        //     'city'=>$request->city,
+        //     'state'=>$request->state,
+        //     'zip'=>$request->zip,
+        //     'type'=>$request->type, 
+        // ]);
+        $contact_id = $contact->id;
+        // return redirect()->route('addresses.store', ['contact' => $contact, 'request'=>$request]);
+        return view('addresses.create')->with('contact_id', $contact_id);
       }
 
     /**
@@ -142,16 +143,6 @@ class ContactController extends Controller
 
     public function postSearch(Request $request)
     {
-        // dump($request->toArray());
-        // $query = $request->get('search');
-        // // dump($query);
-        // $contacts = DB::table('contacts')
-        //     ->where('firstName', 'like', '%' . $query . '%')
-        //     ->orWhere('lastName', 'like', '%' . $query . '%')
-        //     ->orWhere('phone', 'like', '%' . $query . '%')
-        //     ->orWhere('email', 'like', '%' . $query . '%')
-        //     ->get();
-        // dump($contacts);
         // Searching Contacts
         $q = $request->input('search') . '%'; // NOTE: Append wildcard symbol "%"
 

@@ -57,6 +57,6 @@
         </table>
     </div>
     {{-- @endif --}}
-    {{-- {{ $contacts->links() }} --}}
+    {{ $contacts->links() }}
 </div>
 @endsection 

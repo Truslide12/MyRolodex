@@ -26,7 +26,7 @@ class AddressController extends Controller
      */
     public function create(Contact $contact)
     {
-
+        dump($contact);
         return view('addresses.create')->with('contact', $contact);
     }
 
@@ -38,6 +38,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+        dump($request);
         $request->validate([
             'number'    =>'integer',
             'street'    =>'required|string|max:255',
@@ -50,7 +51,7 @@ class AddressController extends Controller
         Address::create($request->all());
         
         $contact = Contact::find($request->contact_id);
-        return view('contacts.details',compact('contact'));
+        return view('contacts.details')->with('contact', $contact);
     }
 
     /**
@@ -87,12 +88,12 @@ class AddressController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'number'    =>'integer',
-            'street'    =>'required|string|max:255',
-            'city'      =>'required|string|max:255',
-            'state'     =>'string|max:255',
-            'zip'       =>'integer',
-            'type'      =>'string|max:255',
+            'number'    => 'integer',
+            'street'    => 'required|string|max:255',
+            'city'      => 'required|string|max:255',
+            'state'     => 'string|max:255',
+            'zip'       => 'integer',
+            'type'      => 'string|max:255',
         ]);
           Address::find($id)->update($request->all());
           return redirect()->route('contacts.index')->with('success','Address update success');
