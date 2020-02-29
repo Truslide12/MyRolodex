@@ -26,18 +26,21 @@ class AddressController extends Controller
      */
     public function create(Contact $contact)
     {
-
+        // dump($contact);
         return view('addresses.create')->with('contact', $contact);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
+        // dump($request->toArray());
+        $contact = Contact::find($request->contact_id);
+        // dump($contact);
         $request->validate([
             'number'    =>'integer',
             'street'    =>'required|string|max:255',
@@ -45,12 +48,19 @@ class AddressController extends Controller
             'state'     =>'string|max:255',
             'zip'       =>'integer',
             'type'      =>'string|max:255',
-            'contact_id'=>'required|integer'
+            // 'contact_id'=>'required|integer'
             ]); 
-        Address::create($request->all());
-        
-        $contact = Contact::find($request->contact_id);
-        return view('contacts.details',compact('contact'));
+        $address = Address::create([
+            'number' => $request->number,
+            'street' => $request->street,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zip' => $request->zip,
+            'type' => $request->type,
+            'contact_id' => $contact->id,
+            ]);
+
+        return view('contacts.details')->with('contact', $contact);
     }
 
     /**
@@ -87,12 +97,12 @@ class AddressController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'number'    =>'integer',
-            'street'    =>'required|string|max:255',
-            'city'      =>'required|string|max:255',
-            'state'     =>'string|max:255',
-            'zip'       =>'integer',
-            'type'      =>'string|max:255',
+            'number'    => 'integer',
+            'street'    => 'required|string|max:255',
+            'city'      => 'required|string|max:255',
+            'state'     => 'string|max:255',
+            'zip'       => 'integer',
+            'type'      => 'string|max:255',
         ]);
           Address::find($id)->update($request->all());
           return redirect()->route('contacts.index')->with('success','Address update success');

@@ -1,8 +1,9 @@
 @extends('layouts.master')
 @section('content')
 <div style="margin-top:20px;"></div>
-<table>
-    <tr class="row">
+</div>
+<div class="container">
+    {{-- <tr class="row">
       <td class="col-md-3">
               <div class="form-group">
                   <strong>First Name : </strong>
@@ -39,13 +40,15 @@
                   {{ $contact->birthday}}
           </div>
         </td>
-    </tr>
-    <tr class="row">
-      <td class="col-md-6">
-          {{ Form::open(['route'=>'addresses.store', 'method'=>'POST']) }}
-          @include('addresses.form_master')
-        {{ form::close() }}
-      </td>
-    </tr>
-    </table>
+    </tr> --}}
+    <div class="container">
+        <div class="col-md-10">
+            {{ Form::model($contact_id, ['route'=>['addresses.store', $contact_id], 'method'=>'POST']) }}
+            {{ Form::hidden('contact_id',   request()->contact_id ) }}
+            @csrf
+            @include('contacts.form_address')
+          {{ form::close() }}
+        </div>
+    </div>
+</div>
 @endsection
