@@ -1,42 +1,40 @@
 <div style="margin-top:20px;"></div>
-<table class="table table-hover table-sm">
+<h3>Create New Contact</h3>
+<table class="table table-hover table-md">
+  {{-- New Contact form Section --}}
   <div class="form-row">
       <div class="input-container">
-        <input class="col-sm-2" id="firstName" type="firstName" name="firstName"required />
-        <span class="input-underline"></span>
-        <label for="firstName" class="input-label">First Name</label>
+        <label for="firstName" class="input-label col-md-5">First Name</label>
+        <input class="col-md-7" id="firstName" type="firstName" name="firstName"required />
       </div>
   </div>
         
   <div class="form-row">
       <div class="input-container">
-        <input id="lastName" type="lastName" name="lastName"required />
-        <span class="input-underline"></span>
-        <label for="lastName" class="input-label">Last Name</label>
+        <label for="lastName" class="input-label col-md-5">Last Name</label>
+        <input class="col-md-7" id="lastName" type="lastName" name="lastName"required />
       </div>
   </div>
         
   <div class="form-row">
     <div class="input-container">
-      <input id="email" type="text" name="email"required />
-      <span class="input-underline"></span>
-      <label for="email" class="input-label">Email</label>
+      <label for="email" class="input-label col-md-5 col-sm-12">Email</label>
+      <input class="col-md-7 col-sm-12" id="email" type="text" name="email"required />
     </div>
   </div>
     
   <div class="form-row">
     <div class="input-container">
-      <input id="phone" type="phone" name="phone"required />
-      <span class="input-underline"></span>
-      <label for="phone" class="input-label">Phone</label>
+      <label for="phone" class="input-label col-md-5 col-sm-12">Phone</label>
+      <input class="col-md-7 col-sm-12" id="phone" type="phone" name="phone"required />
     </div>
   </div>
 
-  <div class="col-sm-2">
-    <p>Birthday</p>
+  <div>
+    <p style="margin-top: 20px">Birthday</p>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="day">Day</label>
-      <div class="col-md-4">
+      <label class="col-md-4 col-sm-12 control-label" for="day">Day</label>
+      <div class="col-md-4 col-sm-12">
         <select id="day" name="day" type="day" class="form-control">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -72,8 +70,8 @@
         </select>
       </div>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="month">Month</label>
-      <div class="col-md-4">
+      <label class="col-md-4 col-sm-12 control-label" for="month">Month</label>
+      <div class="col-md-4 col-sm-12">
         <select id="month" name="month" type="month" class="form-control">
           <option value="1">Jan</option>
           <option value="2">Feb</option>
@@ -91,8 +89,8 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-md-4 control-label" for="year">Year</label>
-      <div class="col-md-4">
+      <label class="col-md-4 col-sm-12 control-label" for="year">Year</label>
+      <div class="col-md-4 col-sm-12">
         <select id="year" name="year" type="year class="form-control">
           <option value="1900">1900</option>
           <option value="1901">1901</option>
@@ -229,10 +227,52 @@
     </div>
   </div>
 
+  {{-- New Addres form section --}}
+  {{-- <p>Address</p>
+  <div class="form-row">
+      <div class="input-container">
+        <label for="number" class="input-label col-md-5">Number</label>
+        <input class="col-md-7" id="number" type="number" name="number"required />
+      </div>
+  </div>
+  <div class="form-row">
+      <div class="input-container">
+        <label for="street" class="input-label col-md-5">Street</label>
+        <input class="col-md-7" id="street" type="street" name="street"required />
+      </div>
+  </div>
+  <div class="form-row">
+      <div class="input-container">
+        <label for="city" class="input-label col-md-5">City</label>
+        <input class="col-md-7" id="city" type="city" name="city"required />
+      </div>
+  </div>
+  <div class="form-row">
+      <div class="input-container">
+        <label for="state" class="input-label col-md-5">State</label>
+        <input class="col-md-7" id="state" type="state" name="state"required />
+      </div>
+  </div>
+  <div class="form-row">
+      <div class="input-container">
+        <label for="zip" class="input-label col-md-5">Zip</label>
+        <input class="col-md-7" id="zip" type="zip" name="zip"required />
+      </div>
+  </div>
   <div class="form-group">
-    <button type='submit' class="btn btn-primary">Save
-      {{-- {{ Form::button(isset($model)? 'Update' : 'save' , ['class'=>'btn btn-success', 'type'=>'submit']) }} --}}
-    </button>
+    <label class="col-md-4 col-sm-12 control-label" for="type">Type</label>
+    <div class="col-md-4 col-sm-12">
+      <select id="type" name="type" type="type" class="form-control">
+        <option value="Home">Home</option>
+        <option value="Work">Work</option>
+        <option value="Seconday">Secondary</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+  </div> --}}
+
+  <div class="form-group">
+    <button type='submit' class="btn btn-success">Save</button>
   </div>
 
 </table>

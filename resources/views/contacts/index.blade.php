@@ -21,14 +21,14 @@
             
     @else --}}
     <div class="table-responsive">
-        <table class="table table-hover col-sm-12">
-            <thead>
+        <table class="table table-hover col-sm-12 w-auto">
+            <thead class="thead-dark">
                 <tr class="row" style="text-align:center">
-                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'firstName', 'currentField' => 'firstName', 'dir' => 'asc' ] )}}">First Name</a></th>
-                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'lastName', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Last Name</a></th>
-                        <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'email', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Email</a></th>
-                        <th class="col-sm-1"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'phone', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Phone</a></th>
-                        <th class="col-sm-2"><a type="submit" class="btn" href="{{ route('contacts.sort', ['field' => 'birthday', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Birthday</a></th>
+                        <th class="col-sm-1"><a type="submit" class="btn" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'firstName', 'currentField' => 'firstName', 'dir' => 'asc' ] )}}">First Name</a></th>
+                        <th class="col-sm-1"><a type="submit" class="btn" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'lastName', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Last Name</a></th>
+                        <th class="col-sm-2"><a type="submit" class="btn" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'email', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Email</a></th>
+                        <th class="col-sm-1"><a type="submit" class="btn" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'phone', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Phone</a></th>
+                        <th class="col-sm-2"><a type="submit" class="btn" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'birthday', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Birthday</a></th>
                         <th class="col-sm-3">Action</th>
                 </tr>
             </thead>

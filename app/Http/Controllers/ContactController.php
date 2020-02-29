@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use Illuminate\Http\Request;
 use App\Contact;
 
@@ -42,14 +43,14 @@ class ContactController extends Controller
         
         // create birthday string from user dropbox input
         $birthday = ($request->year."-".$request->month."-".$request->day);
-        dump($birthday);
+        // dump($birthday);
         $request->validate
         ([
             'firstName'=>'required|string|max:255',
             'lastName'=>'required|string|max:255',
             'email'=>'required|unique:contacts|string|max:255',
             'phone'=>'nullable|string|max:255',
-            // 'birthday'=>'nullable|string|max:255',
+            // 'birthday'=>'nullable|date',
             // 'number'    =>'integer',
             // 'street'    =>'required|string|max:255',
             // 'city'      =>'required|string|max:255',
@@ -65,17 +66,10 @@ class ContactController extends Controller
             'phone'=>$request->phone,
             'birthday'=>$birthday,
         ]);
-        // $contact->addresses()->attach([
-        //     'number'=>$request->number,
-        //     'street'=>$request->street,
-        //     'city'=>$request->city,
-        //     'state'=>$request->state,
-        //     'zip'=>$request->zip,
-        //     'type'=>$request->type, 
-        // ]);
-        $contact_id = $contact->id;
-        // return redirect()->route('addresses.store', ['contact' => $contact, 'request'=>$request]);
-        return view('addresses.create')->with('contact_id', $contact_id);
+        // dump($contact);
+        // dump($contact->id);
+        // $contact->addresses()->attatch($request->all()); // to be added later once I figure out how to make this function correctly
+        return view('contacts.details')->with('contact', $contact);
       }
 
     /**
@@ -86,10 +80,8 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        // dump($contact->toArray());
-        // dump($contact->addresses()->count());
-            return view('contacts.details')
-                    ->with('contact', $contact);
+        return view('contacts.details')
+                ->with('contact', $contact);
     }
 
     /**
@@ -132,6 +124,8 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
+        // Need to find all addresses with the contacdt Id and delete them.
+        Address::where('contact_id', $id)->delete();
         Contact::find($id)->delete();
         return redirect()->route('contacts.index')->with('success','Contact deleted success');   
     }
@@ -158,8 +152,8 @@ class ContactController extends Controller
     {
         // dump($request->toArray());
         // dump($request->contact_id);
-        $contact_id = $request->contact_id;
-        return view('contacts.createAddress')->with('contact_id', $contact_id);
+
+        return view('contacts.createAddress')->with('contact_id', $request->contact_id);
     }
 
     public function sort($field, $currentField , $dir)
