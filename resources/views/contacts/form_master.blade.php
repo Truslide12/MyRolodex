@@ -92,8 +92,13 @@
       <label class="col-md-4 col-sm-12 control-label" for="year">Year</label>
       <div class="col-md-4 col-sm-12">
         <select id="year" name="year" type="year class="form-control">
-            @for ($i = 1920; $i < date('Y'); $i++)
-                <option value="{{ $i }}">{{ $i }}</option>
+            @php
+                $currentMonth = date('n');
+                $currentDay = date('j');
+                $currentYear = date('Y');
+            @endphp
+            @for ($i = ($currentYear-100); $i < $currentYear; $i++)
+                <option value="{{ $i }}" {{ ($currentYear==$i) ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
         </select>
       </div>
