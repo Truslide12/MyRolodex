@@ -93,7 +93,11 @@ class ContactController extends Controller
     public function edit($id)
     {
         $contact = Contact::find($id);
-        return view('contacts.edit',compact('contact'));
+        if($contact) {            
+            return view('contacts.edit')->with('contact',$contact);   
+        } else {
+            return redirect('contacts');
+        }
     }
 
     /**
