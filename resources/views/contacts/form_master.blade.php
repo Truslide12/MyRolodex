@@ -97,7 +97,7 @@
                 $currentDay = date('j');
                 $currentYear = date('Y');
             @endphp
-            @for ($i = ($currentYear-100); $i < $currentYear; $i++)
+            @for ($i = $currentYear; $i > ($currentYear-100); $i--)
                 <option value="{{ $i }}" {{ ($currentYear==$i) ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
         </select>
