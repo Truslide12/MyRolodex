@@ -28,7 +28,8 @@ class ContactController extends Controller
      */
     public function create()
     {
-        return view('contacts.create');
+        $contact = new Contact();
+        return view('contacts.create')->with('contact', $contact);
     }
 
     /**
