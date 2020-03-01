@@ -5,21 +5,21 @@
   <div class="form-row">
       <div class="input-container">
         <label for="firstName" class="input-label col-md-5">First Name</label>
-        <input class="col-md-7" id="firstName" type="firstName" name="firstName"required />
+        <input class="col-md-7" id="firstName" type="textbox" name="firstName" value="{{ $contact->firstName }}" required />
       </div>
   </div>
         
   <div class="form-row">
       <div class="input-container">
         <label for="lastName" class="input-label col-md-5">Last Name</label>
-        <input class="col-md-7" id="lastName" type="lastName" name="lastName"required />
+        <input class="col-md-7" id="lastName" type="textbox" name="lastName" value="{{ $contact->lastName }}" required />
       </div>
   </div>
         
   <div class="form-row">
     <div class="input-container">
       <label for="email" class="input-label col-md-5 col-sm-12">Email</label>
-      <input class="col-md-7 col-sm-12" id="email" type="text" name="email"required />
+      <input class="col-md-7 col-sm-12" id="email" type="textbox" name="email" value="{{ $contact->email }}" required />
     </div>
   </div>
     
