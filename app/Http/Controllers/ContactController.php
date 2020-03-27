@@ -124,15 +124,19 @@ class ContactController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \app\Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $id)
     {
-        // Need to find all addresses with the contacdt Id and delete them.
-        Address::where('contact_id', $id)->delete();
-        Contact::find($id)->delete();
-        return redirect()->route('contacts.index')->with('success','Contact deleted success');   
+        dump($id);
+        // $contact_id = $id;
+        // echo "<pre>"; print_r($contact_id); die;
+        // // Need to find all addresses with the contacdt Id and delete them.
+        // Address::where('contact_id', $contact_id)->delete();
+        // // Delete the contact
+        // Contact::find($contact_id)->delete();
+        // return redirect()->route('contacts.index')->with('success','Contact deleted success');   
     }
 
     public function search() 

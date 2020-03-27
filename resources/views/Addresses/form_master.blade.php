@@ -1,6 +1,6 @@
 <table class="table table-hover">
     <tr class="row col-sm-12" style="margin:20px;"> 
-        <div class="input-container">
+          <div class="input-container">
             <label for="contact_id" class="input-label col-md-5"></label>
             <input value="{{$contact_id}}" class="col-md-7" id="contact_id" type="contact_id" name="contact_id" required />
           </div>
@@ -66,5 +66,5 @@
   </td>
 </table>
 <div class="form-group">
-{{ Form::button(isset($model)? 'Update' : 'save' , ['class'=>'btn btn-success', 'type'=>'submit']) }}
+{{ Form::button(isset($model)? 'Update' : 'save' , ['class'=>'btn btn-success', 'type'=>'submit']) }} --}}
 </div>
