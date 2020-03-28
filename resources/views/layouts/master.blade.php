@@ -14,8 +14,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-    
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+  
   </head>
 
   <body>
@@ -32,22 +32,10 @@
           <li class="nav-item active">
             <a class="nav-link" href="{{ route('contacts.index')}}">Home <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="{{ route('contacts.search')}}">Search</a>
-          </li>
-          {{-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="{{ route('contacts.create')}}">Add Contact</a> --}}
-              {{-- <a class="dropdown-item" href="{{ route('contacts.edit')}}">Edit Contact</a> --}}
-              {{-- <a class="dropdown-item" href="{{ route('contacts.newAddress')}}">Add New Address</a> --}}
-            </div>
-          </li>
+          </li> --}}
         </ul>
-        {{-- <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form> --}}
       </div>
     </nav>
 
@@ -58,9 +46,65 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script src="jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+
+      $(document).ready(function() {
+
+        // Start Edit Record
+        $('#editModal').on('show', function(e) {
+          var link     = e.relatedTarget();
+          var id = link.data("id");
+          var firstName = link.data("firstName");
+          var lastName = link.data("firstName");
+          var email    = link.data("email");
+          var phone = link.data("phone");
+          var birthday = link.data("birthday");
+
+          var modal = $(this);
+
+          modal.find('.modal-title').text('Edit Contact Information')
+          modal.find(".modal-body #firstName").val(firstName);
+          modal.find(".modal-body #lastName").val(lastName);
+          modal.find(".modal-body #email").val(email);
+          modal.find(".modal-body #phone").val(phone);
+          modal.find(".modal-body #birthday").val(birthday);
+        });
+        // End Edit Record
+
+        // Start Delete Record
+        // $('#deleteModal').on('show.bs.modal', function(e) {
+        //   console.log("this is the id = ");
+        //   var link = = e.relatedTarget();
+        //   var id = link.data("id");
+        //   var firstName = link.data("firstName");
+        //   var lastName = link.data("firstName");
+
+        //   var modal = $(this);
+
+        //   modal.find(".modal-title").text('Delete Contact Information')
+        //   modal.find(".modal-body #firstName").val(firstName);
+        //   modal.find(".modal-body #lastName").val(lastName);
+        //   modal.find(".modal-body #id").val(id);
+          
+        $(document).on('click','.delete',function(){
+         let id = $(this).attr('data-id');
+         let firstName = $(this).attr('data-firstName');
+         let lastName = $(this).attr('data-lastName');
+         $('#id').val(id);
+         $('#firstName').val(firstName);
+         $('#lastName').val(lastName);
+          // $('#deleteUserForm').attr('action', '/user/' + button.data('id'));
+        });
+        // End Delete Record
+      });
+
+    </script>
+
       @yield('script')
   </body>
 </html>

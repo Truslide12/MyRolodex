@@ -25,8 +25,11 @@ Route::get('/sort/desc/{field}', 'ContactController@sortDown')->name('contacts.s
 Route::get('/sort/{field}/{currentField}/{dir}', 'ContactController@sort')->name('contacts.sort');
 Route::get('/details/{column}', 'addressController@details')->name('addresses.details');
 
-// MySQL data routes
+// Modal routes
 Route::get('/edit', 'ContactController@edit')->name('contacts.edit');
+Route::get('/delete', 'ContactController@delete')->name('contacts.delete');
+
+// MySQL data routes
 Route::get('/createAddress', 'ContactController@createAddress')->name('contacts.createAddress');
 Route::post('/storeAddress/{contact_id}', 'AddressController@store')->name('addresses.store');
 Route::resource('contacts', 'ContactController');

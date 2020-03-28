@@ -1,6 +1,4 @@
-<div style="margin-top:20px;"></div>
-<h3>Create New Contact</h3>
-<table class="table table-hover table-md">
+
   {{-- New Contact form Section --}}
   <div class="form-row">
       <div class="input-container">
@@ -26,75 +24,43 @@
   <div class="form-row">
     <div class="input-container">
       <label for="phone" class="input-label col-md-5 col-sm-12">Phone</label>
-      <input class="col-md-7 col-sm-12" id="phone" type="phone" name="phone"required />
+      <input class="col-md-7 col-sm-12" id="phone" type="phone" name="phone" value="{{ $contact->phone }}" required />
     </div>
   </div>
 
   <div>
     <p style="margin-top: 20px">Birthday</p>
-    <div class="form-group">
+<div class="form-group">
       <label class="col-md-4 col-sm-12 control-label" for="day">Day</label>
       <div class="col-md-4 col-sm-12">
         <select id="day" name="day" type="day" class="form-control">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-          <option value="6">6</option>
-          <option value="7">7</option>
-          <option value="8">8</option>
-          <option value="9">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-          <option value="13">13</option>
-          <option value="14">14</option>
-          <option value="15">15</option>
-          <option value="16">16</option>
-          <option value="17">17</option>
-          <option value="18">18</option>
-          <option value="19">19</option>
-          <option value="20">20</option>
-          <option value="21">21</option>
-          <option value="22">22</option>
-          <option value="23">23</option>
-          <option value="24">24</option>
-          <option value="25">25</option>
-          <option value="26">26</option>
-          <option value="27">27</option>
-          <option value="28">28</option>
-          <option value="29">29</option>
-          <option value="30">30</option>
-          <option value="31">31</option>
+            @php
+             $currentDay = date('n');
+            @endphp
+            @for ($i = 1; $i <= 31; $i++)
+                <option value="{{ $i }}" {{ ($currentDay==$i) ? 'selected' : '' }}>{{ $i }}</option>
+            @endfor
         </select>
       </div>
     <div class="form-group">
       <label class="col-md-4 col-sm-12 control-label" for="month">Month</label>
       <div class="col-md-4 col-sm-12">
         <select id="month" name="month" type="month" class="form-control">
-          <option value="1">Jan</option>
-          <option value="2">Feb</option>
-          <option value="3">Mar</option>
-          <option value="4">Apr</option>
-          <option value="5">May</option>
-          <option value="6">Jun</option>
-          <option value="7">Jul</option>
-          <option value="8">Aug</option>
-          <option value="9">Sep</option>
-          <option value="10">Oct</option>
-          <option value="11">Nov</option>
-          <option value="12">Dec</option>
+            @php
+            $currentMonth = date('j');
+            @endphp  
+            @for ($i = 1; $i <= 12; $i++)
+                <option value="{{ $i }}" {{ ($currentMonth==$i) ? 'selected' : '' }}>{{ $i }}</option>
+            @endfor
         </select>
       </div>
-    </div>
     <div class="form-group">
       <label class="col-md-4 col-sm-12 control-label" for="year">Year</label>
       <div class="col-md-4 col-sm-12">
         <select id="year" name="year" type="year class="form-control">
             @php
-                $currentMonth = date('n');
-                $currentDay = date('j');
+                // $currentMonth = date('n');
+                // $currentDay = date('j');
                 $currentYear = date('Y');
             @endphp
             @for ($i = $currentYear; $i > ($currentYear-100); $i--)
@@ -105,7 +71,12 @@
     </div>
   </div>
 
-  {{-- New Addres form section --}}
+  <div class="form-group">
+      <button type='submit' class="btn btn-success">Save</button>
+  </div>
+
+
+  {{-- New Addres form section (Original code) --}}
   {{-- <p>Address</p>
   <div class="form-row">
       <div class="input-container">
@@ -148,9 +119,3 @@
       </select>
     </div>
   </div> --}}
-
-  <div class="form-group">
-    <button type='submit' class="btn btn-success">Save</button>
-  </div>
-
-</table>

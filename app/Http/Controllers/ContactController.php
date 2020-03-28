@@ -127,8 +127,10 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        // dump($request);
+        $id = $request->id;
         // Need to find all addresses with the contacdt Id and delete them.
         Address::where('contact_id', $id)->delete();
         Contact::find($id)->delete();
