@@ -88,8 +88,8 @@
                             <td>
                                 <a href="#" 
                                     data-id={{$value->id}}
-                                    data-firstName="{{$value->firstName}}"
-                                    data-firstName="{{$value->lastName}}"
+                                    data-firstName={{$value->firstName}}
+                                    data-lastName={{$value->lastName}}
                                     class="btn btn-danger delete" 
                                     data-toggle="modal" 
                                     data-target="#deleteModal">Delete</a>
@@ -144,9 +144,9 @@
                         <form action="{{ route('contacts.destroy', 'id') }}" method="post">
                             @csrf
                             @method('DELETE')
-                            <input id="id" name="id")>
+                            <input id="id" name="id" type="hidden">
                             <h5 class="text-center">Are you sure you want to delete this contact?</h5>
-                            <input id="firstName" name="firstName"><input id="lastName" name="lastName">
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -167,52 +167,3 @@
 </div>
 
 @endsection 
-
-@section('modalScripts')
-<script type="text/javascript">
-
-    $(document).ready(function() {
-
-      // Start Edit Record
-      $('#editModal').on('show', function(e) {
-        var link     = e.relatedTarget();
-        var id = link.data("id");
-        var firstName = link.data("firstName");
-        var lastName = link.data("firstName");
-        var email    = link.data("email");
-        var phone = link.data("phone");
-        var birthday = link.data("birthday");
-
-        var modal = $(this);
-
-        modal.find('.modal-title').text('Edit Contact Information')
-        modal.find(".modal-body #firstName").val(firstName);
-        modal.find(".modal-body #lastName").val(lastName);
-        modal.find(".modal-body #email").val(email);
-        modal.find(".modal-body #phone").val(phone);
-        modal.find(".modal-body #birthday").val(birthday);
-      });
-      // End Edit Record
-
-      // Start Delete Record
-      $('#deleteModal').on('show.bs.modal', function(e) {
-        console.log("this is the id = ");
-        var link = = e.relatedTarget();
-        var id = link.data("id");
-        var firstName = link.data("firstName");
-        var lastName = link.data("firstName");
-
-        var modal = $(this);
-
-        modal.find(".modal-title").text('Delete Contact Information')
-        modal.find(".modal-body #firstName").val(firstName);
-        modal.find(".modal-body #lastName").val(lastName);
-        modal.find(".modal-body #id").val(id);
-        // $('#deleteUserForm').attr('action', '/user/' + button.data('user-id'));
-      });
-      // End Delete Record
-      
-    });
-  </script>
-
-@endsection
