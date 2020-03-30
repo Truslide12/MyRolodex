@@ -53,14 +53,13 @@
                             <th>Edit</th>
                             <th>Add Address</th>
                             <th>Delete</th>
-                            <th>Map</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($contacts as $key => $value)
                         <tr>
                             {{--  Need to add in sort functions for each catagory --}}
-                            <td>{{$value->id}} - {{$value->firstName}}</td>
+                            <td>{{$value->firstName}}</td>
                             <td>{{$value->lastName}}</td>
                             <td>{{$value->email}}</td>
                             <td>{{$value->phone}}</td>
@@ -74,7 +73,7 @@
                                     data-target="#editModal"
                                     data-id="{{ $value->id }}"
                                     data-firstName="{{ $value->firstName }}"
-                                    data-lastName="{{ $value->lsstName }}"
+                                    data-lastName="{{ $value->lastName }}"
                                     data-email="{{ $value->email }}"
                                     data-phone="{{ $value->phone }}"
                                     data-birthday="{{ $value->birthday }}"
@@ -93,9 +92,6 @@
                                     class="btn btn-danger delete" 
                                     data-toggle="modal" 
                                     data-target="#deleteModal">Delete</a>
-                            </td>
-                            <td>
-
                             </td>
                         </tr>
                     @endforeach 
@@ -150,7 +146,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-danger">Yes, Delete Contact</button>
+                            <button type="submit" class="btn btn-sm btn-danger" id="deleteOK_button">Yes, Delete Contact</button>
                         </div>
                         </form>
                     </div>

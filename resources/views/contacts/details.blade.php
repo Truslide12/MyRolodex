@@ -51,7 +51,9 @@
                     <th class="col-sm-2">City</th>
                     <th class="col-sm-1">State</th>
                     <th class="col-sm-1">Zip</th>
-                    <th class="col-sm-3">Action</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                    <th>Map</th>
                 </tr>
             </thead>
             <tbody>
@@ -64,25 +66,49 @@
                     <td class="col-sm-1">{{ $row->state}}</td>
                     <td class="col-sm-1">{{ $row->zip}}</td>
                     <td class="col-sm-3">
-                        <form action="{{ route('addresses.destroy', $row->id) }}" method="post">
-                        <a class="btn btn-sm btn-warning" href="{{ route('addresses.edit', $row->id)}}">Edit</a>
+                        {{-- <a class="btn btn-sm btn-warning" href="{{ route('addresses.edit', $row->id)}}">Edit</a> --}}
+                        <a class="btn btn-warning editAddress" 
+                            data-toggle="modal" 
+                            data-target="#editAddressModal"
+                            data-id="{{ $value->id }}"
+                            data-firstName="{{ $value->type }}"
+                            data-lastName="{{ $value->number }}"
+                            data-email="{{ $value->city }}"
+                            data-phone="{{ $value->state }}"
+                            data-birthday="{{ $value->zip }}"
+                            >
+                            Edit
+                        </a> 
+                    </td>
+                    <td>
+                        <a href="#" 
+                        data-id={{$value->id}}
+                        data-firstName={{$value->firstName}}
+                        data-lastName={{$value->lastName}}
+                        class="btn btn-danger deleteAddres" 
+                        data-toggle="modal" 
+                        data-target="#deleteAddressModal">
+                        Delete</a>
+                        {{-- <form action="{{ route('addresses.destroy', $row->id) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form> --}}
+                    </td>
+                    <td>
                         <button type="button" class="btn btn-primary mapbtn" data-toggle="modal" data-target="#mapModal">
                                 Map
                             </button>
                         {{-- <td><a class="btn btn-sm btn-warning" href="{{ route('contacts.map', $row->id)}}">Edit</a></td> --}}
-                            @csrf
-                        @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
-                    </td>
+                     </td>
                 </tr>
             </tbody>
             @endforeach
         </table>
 
 {{-- ############################################ Modals ############################################# --}}
-<!-- Edit Modal -- (To be added later once calendar is working) -->
-    {{-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+<!-- Edit Address Modal -- (To be added later once calendar is working) -->
+    <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -94,8 +120,8 @@
                 <form action="/contacts" method="PUT" id="editForm">
                 <div class="modal-body">
                     @crsf
-                    {{ Form::model($contact,['route'=>['contacts.update', $value->id],'method'=>'PATCH']) }}
-                    @include('contacts.form_master')
+                    {{ Form::model($contact,['route'=>['ADDRESSES.update', 'id'],'method'=>'PATCH']) }}
+                    @include('contacts.form_address')
                     {{ Form::close() }}
                 </div>
                 <div class="modal-footer">
@@ -105,11 +131,11 @@
                 </form>
             </div>
         </div>
-    </div>   --}}
+    </div>  
 <!-- End Edit Modal -->
 
-<!-- Delete Warning Modal -->
-{{-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+<!-- Delete Address Warning Modal -->
+    <div class="modal fade" id="deleteAddressModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -132,11 +158,11 @@
                 </form>
             </div>
         </div>
-    </div> --}}
+    </div>
 <!-- End Delete Modal --> 
 
 <!-- Map Modal -- (To be added later once calendar is working) -->
-    {{-- <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+    <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -147,20 +173,17 @@
                 </div>
                 <form action="/contacts" method="PUT" id="editForm">
                 <div class="modal-body">
-                    @crsf
-                    {{ Form::model($contact,['route'=>['contacts.update', $value->id],'method'=>'PATCH']) }}
-                    @include('contacts.form_master')
-                    {{ Form::close() }}
+                    <h5>Google Maps to be added later</h5>
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <a class="btn btn-sm btn-success" href="contacts/edit">Update</a>
+                <button type="submit" class="btn btn-sm btn-danger" id="deleteAddressOK_button">Update</button>
                 </div>
                 </form>
             </div>
         </div>
-    </div>   --}}
-<!-- End Map Modal -->
+    </div>   
+<!-- End Map Modal -->--}}
 {{-- ########################################## End Modals ########################################### --}}
 
     </div>
