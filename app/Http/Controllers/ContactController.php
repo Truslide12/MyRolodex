@@ -121,6 +121,43 @@ class ContactController extends Controller
         return redirect()->route('contacts.index')->with('success','Contact update success');
     }
 
+    
+    public function postDelete(Request $requeset)
+    {
+        $pkg = ['status'=>-1, 'msg'=>''];
+        
+        $rid = $request->input('rid');
+        
+        if($rid) {
+            
+            $row = Contact::find($rid);
+            
+            if($row) {
+                
+                $row->addresses()->delete();
+                $row->delete();
+                
+                $pkg['status']=1;
+                $pkg['msg']='Successfully removed item';
+                                
+            } else {
+        
+                $pkg['status']=0;
+                $pkg['msg']='Row ID not found';
+                
+            }
+            
+        } else {
+            
+            $pkg['status']=0;
+            $pkg['msg']='Missing row ID';
+        }
+        
+        
+        return response()->json($pkg);
+        
+    }
+    
     /**
      * Remove the specified resource from storage.
      *
