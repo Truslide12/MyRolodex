@@ -1,4 +1,47 @@
-<table class="table table-hover table-sm">
+
+  {{-- New Contact form Section --}}
+  <div class="form-row">
+      <div class="input-container">
+        <label for="number" class="input-label col-md-5">Number</label>
+        <input class="col-md-7" id="number" type="textbox" name="number" required />
+      </div>
+  </div>
+        
+  <div class="form-row">
+      <div class="input-container">
+        <label for="street" class="input-label col-md-5">Street</label>
+        <input class="col-md-7" id="street" type="textbox" name="street" required />
+      </div>
+  </div>
+        
+  <div class="form-row">
+    <div class="input-container">
+      <label for="city" class="input-label col-md-5 col-sm-12">City</label>
+      <input class="col-md-7 col-sm-12" id="city" type="textbox" name="city" required />
+    </div>
+  </div>
+    
+  <div class="form-row">
+    <div class="input-container">
+      <label for="state" class="input-label col-md-5 col-sm-12">State</label>
+      <input class="col-md-7 col-sm-12" id="state" type="state" name="state" required />
+    </div>
+  </div>
+
+  <div>
+    <div class="form-group">
+      <div class="input-container">
+        <label for="zip" class="input-label col-md-5 col-sm-12">Zip</label>
+        <input class="col-md-7 col-sm-12" id="zip" type="zip" name="zip" required />
+      </div>
+  </div>
+
+  <div class="form-group">
+      <button type='submit' class="btn btn-success">Save</button>
+  </div>
+
+{{-- Original code --}}
+{{-- <table class="table table-hover table-sm">
   <tr class="row col-sm-12" style="margin:20px;">  
   </tr>
 
@@ -64,4 +107,4 @@
 </table>
 <div class="form-group">
 {{ Form::button(isset($model)? 'Update' : 'save' , ['class'=>'btn btn-success', 'type'=>'submit']) }}
-</div>
+</div> --}}

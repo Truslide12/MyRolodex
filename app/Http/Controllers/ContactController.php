@@ -127,14 +127,22 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id, Request $request)
     {
         // dump($request);
+        // verify ajax request
         $id = $request->id;
         // Need to find all addresses with the contacdt Id and delete them.
         Address::where('contact_id', $id)->delete();
-        Contact::find($id)->delete();
-        return redirect()->route('contacts.index')->with('success','Contact deleted success');   
+        $contact = Contact::findOrFail($id);
+
+        if($request->ajax() ) {
+            $contact->delete( $request->all());
+            return response(['msg' => 'Product deleted', 'status' => 'success']);
+        }
+        
+        return response(['msg' => 'Failed deleting the product', 'status' => 'failed']);
+    
     }
 
     public function search() 

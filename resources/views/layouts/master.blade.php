@@ -55,54 +55,88 @@
 
       $(document).ready(function() {
 
-        // Start Edit Record
-        $('#editModal').on('show', function(e) {
-          var link     = e.relatedTarget();
-          var id = link.data("id");
-          var firstName = link.data("firstName");
-          var lastName = link.data("firstName");
-          var email    = link.data("email");
-          var phone = link.data("phone");
-          var birthday = link.data("birthday");
-
-          var modal = $(this);
-
-          modal.find('.modal-title').text('Edit Contact Information')
-          modal.find(".modal-body #firstName").val(firstName);
-          modal.find(".modal-body #lastName").val(lastName);
-          modal.find(".modal-body #email").val(email);
-          modal.find(".modal-body #phone").val(phone);
-          modal.find(".modal-body #birthday").val(birthday);
-        });
+        // Start Edit Contact Modal
+        // $(document).on('click','.edit',function(){
+        //  let id = $(this).attr('data-id');
+        //  let firstName = $(this).attr('data-firstName');
+        //  let lastName = $(this).attr('data-lastName');
+        //  let email = $(this).attr('data-email');
+        //  let phone = $(this).attr('data-phone');
+        //  let birthday = $(this).attr('data-birthday');
+        //  $('#id').val(id);
+        //  $('#firstName').val(firstName);
+        //  $('#lastName').val(lastName);
+        //  $('#emaile').val(email);
+        //  $('#phone').val(phone);
+        //  $('#birthday').val(birthday);
+        // });
         // End Edit Record
 
-        // Start Delete Record
-        // $('#deleteModal').on('show.bs.modal', function(e) {
-        //   console.log("this is the id = ");
-        //   var link = = e.relatedTarget();
-        //   var id = link.data("id");
-        //   var firstName = link.data("firstName");
-        //   var lastName = link.data("firstName");
+        // Start Delete Contact Modal
+        $('.delete').on('click', function(e) {
+          var inputData = $('#deleteModal').serialize();
 
-        //   var modal = $(this);
+          var dataId = $(this).attr('data-id');
 
-        //   modal.find(".modal-title").text('Delete Contact Information')
-        //   modal.find(".modal-body #firstName").val(firstName);
-        //   modal.find(".modal-body #lastName").val(lastName);
-        //   modal.find(".modal-body #id").val(id);
-          
-        $(document).on('click','.delete',function(){
-         let id = $(this).attr('data-id');
-         let firstName = $(this).attr('data-firstName');
-         let lastName = $(this).attr('data-lastName');
-         $('#id').val(id);
-         $('#firstName').val(firstName);
-         $('#lastName').val(lastName);
-          // $('#deleteUserForm').attr('action', '/user/' + button.data('id'));
-        });
+          $.ajax({
+              url: '{{ url('/contacts/') }}' + '/' + dataId,
+              type: 'POST',
+              data: inputData,
+              success: function( msg ) {
+                  if ( msg.status === 'success' ) {
+                      toastr.success( msg.msg );
+                      setInterval(function() {
+                          window.location.reload();
+                      }, 5900);
+                  }
+              },
+              error: function( data ) {
+                  if ( data.status === 422 ) {
+                      toastr.error('Cannot delete the category');
+                  }
+              }
+          });
+          return false;
+       });
         // End Delete Record
-      });
 
+
+        // Start Edit Address Record
+        // $(document).on('click','.editAddress',function(){
+        //  let id = $(this).attr('data-id');
+        //  let firstName = $(this).attr('data-firstName');
+        //  let lastName = $(this).attr('data-lastName');
+        //  let email = $(this).attr('data-email');
+        //  let phone = $(this).attr('data-phone');
+        //  let birthday = $(this).attr('data-birthday');
+        //  $('#id').val(id);
+        //  $('#firstName').val(firstName);
+        //  $('#lastName').val(lastName);
+        //  $('#emaile').val(email);
+        //  $('#phone').val(phone);
+        //  $('#birthday').val(birthday);
+        // });
+        // End Edit Record
+
+        // Start Delete Address Record
+        // $(document).on('click','.deleteAddress',function(){
+        //  let id = $(this).attr('data-id');
+        //  let firstName = $(this).attr('data-firstName');
+        //  let lastName = $(this).attr('data-lastName');
+        //  $('#id').val(id);
+        // });
+        // End Delete Record
+
+        // Start MapModal
+        // $(document).on('click','.mapbtn',function(){
+        //   let id = $(this).attr('data-id');
+        //   let firstName = $(this).attr('data-firstName');
+        //   let lastName = $(this).attr('data-lastName');
+        //   $('#id').val(id);
+        // });
+        // End Delete Record
+        
+      });
     </script>
 
       @yield('script')
