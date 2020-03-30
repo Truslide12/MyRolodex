@@ -146,7 +146,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-danger" id="deleteOK_button">Yes, Delete Contact</button>
+                            <button type="submit" class="btn btn-sm btn-danger" id="deleteOK_button" rid="{{ $value->id }}">Yes, Delete Contact</button>
                         </div>
                         </form>
                     </div>
@@ -162,4 +162,20 @@
     {{ $contacts->links() }}
 </div>
 
+<script>
+$(document).ready(function(){
+    
+    $('#deleteOK_button).on('click',function(){
+        var rid = $(this).attr('rid');
+        
+        $.post('{{ url('contacts/delete') }}', {
+            '_token':'{{ csrf_token() }}',
+            'rid' : rid,
+        }, function(data){
+            console.log(data);
+        }, 'json');
+    });
+
+});
+</script>
 @endsection 
