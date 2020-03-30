@@ -33,6 +33,6 @@ Route::get('/delete', 'ContactController@delete')->name('contacts.delete');
 Route::get('/createAddress', 'ContactController@createAddress')->name('contacts.createAddress');
 Route::post('/storeAddress/{contact_id}', 'AddressController@store')->name('addresses.store');
 
-Route::post('/contacts/delete', 'ContactsController@postDelete');
+Route::post('/contacts/delete', 'ContactController@postDelete');
 Route::resource('contacts', 'ContactController');
 Route::resource('addresses', 'AddressController');
