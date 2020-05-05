@@ -120,7 +120,7 @@
                 <form action="/contacts" method="PUT" id="editForm">
                 <div class="modal-body">
                     @crsf
-                    {{ Form::model($contact,['route'=>['ADDRESSES.update', 'id'],'method'=>'PATCH']) }}
+                    {{ Form::model($contact,['route'=>['addresses.update', 'id'],'method'=>'PATCH']) }}
                     @include('contacts.form_address')
                     {{ Form::close() }}
                 </div>
@@ -183,7 +183,7 @@
             </div>
         </div>
     </div>   
-<!-- End Map Modal -->--}}
+<!-- End Map Modal --}}
 {{-- ########################################## End Modals ########################################### --}}
 
     </div>

@@ -44,18 +44,24 @@
             <table id='dataTable' class="table table-hover col-sm-12 w-auto">
                 <thead class="thead-dark">
                     <tr>
-                            <th><a type="submit" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'firstName', 'currentField' => 'firstName', 'dir' => 'asc' ] )}}">First Name</a></th>
-                            <th><a type="submit" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'lastName', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Last Name</a></th>
-                            <th><a type="submit" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'email', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Email</a></th>
-                            <th><a type="submit" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'phone', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Phone</a></th>
-                            <th><a type="submit" style="font-weight:bold; color:white" href="{{ route('contacts.sort', ['field' => 'birthday', 'currentField' => 'firstName','dir' => 'desc' ] )}}">Birthday</a></th>
-                            <th>Show</th>
-                            <th>Edit</th>
-                            <th>Add Address</th>
-                            <th>Delete</th>
+                            <th>
+                                <h5>@sortablelink('firstName', 'First Name')</h5>
+                            </th>
+                            <th>
+                                <h5>@sortablelink('lastName', 'Last Name')</h5>
+                            <th>
+                                <h5>@sortablelink('email', 'Email')</h5>
+                            <th>
+                                <h5>@sortablelink('phone', 'Phone')</h5>
+                            <th>
+                                <h5>@sortablelink('birthday', 'Birthday')</h5>
+                            <th>
+                                <h5 style='text-align:center;'>@sortablelink('id', 'Action')</h5>
+                            </th>
                     </tr>
                 </thead>
                 <tbody>
+                    @if($contacts->count())
                     @foreach ($contacts as $key => $value)
                         <tr>
                             {{--  Need to add in sort functions for each catagory --}}
@@ -64,9 +70,9 @@
                             <td>{{$value->email}}</td>
                             <td>{{$value->phone}}</td>
                             <td>{{$value->birthday}}</td>
-                            <td><a class="btn btn-sm btn-success" href="{{ route('contacts.show', $value->id)}}">Show</a></td>
-
-                            <td><a class="btn btn-sm btn-warning" href="{{ route('contacts.edit', $value->id)}}">Edit</a>                           
+                            <td>
+                                <a class="btn btn-sm btn-success" style='display:inline-block;' href="{{ route('contacts.show', $value->id)}}">Show</a>
+                                <a class="btn btn-sm btn-warning" style='display:inline-block;' href="{{ route('contacts.edit', $value->id)}}">Edit</a>                           
                                 {{-- for future editmodal 
                                     <a class="btn btn-warning edit" 
                                     data-toggle="modal" 
@@ -80,12 +86,9 @@
                                     >
                                     Edit
                                 </a> --}}
-                            </td>
-                            <td><a class="btn btn-sm btn-second" href="{{ route('contacts.createAddress', ['contact_id' => $value->id])}}">Add Address</a></td>
-                            {{-- Need to to change this to call the delete modal --}}
-                            {{-- <td><a class="btn btn-sm btn-danger" href="{{ route('contacts.destroy', $value->id)}}">Destroy</a></td> --}}
-                            <td>
-                                <a href="#" 
+                                <a class="btn btn-sm btn-second" style='display:inline-block;' 
+                                    href="{{ route('contacts.createAddress', ['contact_id' => $value->id])}}">Add Address</a>
+                                <a href="#" style='display:inline-block;' 
                                     data-id={{$value->id}}
                                     data-firstName={{$value->firstName}}
                                     data-lastName={{$value->lastName}}
@@ -95,9 +98,10 @@
                             </td>
                         </tr>
                     @endforeach 
+                @endif
                 </tbody>
             </table>
-
+            {!! $contacts->appends(\Request::except('page'))->render() !!}
 {{-- ############################################ Modals ############################################# --}}
         <!-- Edit Modal -- (To be added later once calendar is working) -->
             {{-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
@@ -146,7 +150,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-sm btn-danger" id="deleteOK_button">Yes, Delete Contact</button>
+                            <button type="submit" class="btn btn-sm btn-danger" id="deleteOK_button" rid="{{ $value->id }}">Yes, Delete Contact</button>
                         </div>
                         </form>
                     </div>
@@ -161,5 +165,21 @@
     </div>
     {{ $contacts->links() }}
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        $('#deleteOK_button').on('click',function(){
+            var rid = $(this).attr('rid');
+            
+            $.post('{{ url('contacts/delete') }}', {
+                '_token':'{{ csrf_token() }}',
+                'rid' : rid,
+            }, function(data){
+                console.log(data);
+            }, 'json');
+        });
+    });
+</script>
 
 @endsection 

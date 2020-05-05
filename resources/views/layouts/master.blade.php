@@ -46,100 +46,13 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="jquery-3.4.1.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    {{-- <script src="jquery-3.4.1.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <script type="text/javascript">
-
-      $(document).ready(function() {
-
-        // Start Edit Contact Modal
-        // $(document).on('click','.edit',function(){
-        //  let id = $(this).attr('data-id');
-        //  let firstName = $(this).attr('data-firstName');
-        //  let lastName = $(this).attr('data-lastName');
-        //  let email = $(this).attr('data-email');
-        //  let phone = $(this).attr('data-phone');
-        //  let birthday = $(this).attr('data-birthday');
-        //  $('#id').val(id);
-        //  $('#firstName').val(firstName);
-        //  $('#lastName').val(lastName);
-        //  $('#emaile').val(email);
-        //  $('#phone').val(phone);
-        //  $('#birthday').val(birthday);
-        // });
-        // End Edit Record
-
-        // Start Delete Contact Modal
-        $('.delete').on('click', function(e) {
-          var inputData = $('#deleteModal').serialize();
-
-          var dataId = $(this).attr('data-id');
-
-          $.ajax({
-              url: '{{ url('/contacts/') }}' + '/' + dataId,
-              type: 'POST',
-              data: inputData,
-              success: function( msg ) {
-                  if ( msg.status === 'success' ) {
-                      toastr.success( msg.msg );
-                      setInterval(function() {
-                          window.location.reload();
-                      }, 5900);
-                  }
-              },
-              error: function( data ) {
-                  if ( data.status === 422 ) {
-                      toastr.error('Cannot delete the category');
-                  }
-              }
-          });
-          return false;
-       });
-        // End Delete Record
-
-
-        // Start Edit Address Record
-        // $(document).on('click','.editAddress',function(){
-        //  let id = $(this).attr('data-id');
-        //  let firstName = $(this).attr('data-firstName');
-        //  let lastName = $(this).attr('data-lastName');
-        //  let email = $(this).attr('data-email');
-        //  let phone = $(this).attr('data-phone');
-        //  let birthday = $(this).attr('data-birthday');
-        //  $('#id').val(id);
-        //  $('#firstName').val(firstName);
-        //  $('#lastName').val(lastName);
-        //  $('#emaile').val(email);
-        //  $('#phone').val(phone);
-        //  $('#birthday').val(birthday);
-        // });
-        // End Edit Record
-
-        // Start Delete Address Record
-        // $(document).on('click','.deleteAddress',function(){
-        //  let id = $(this).attr('data-id');
-        //  let firstName = $(this).attr('data-firstName');
-        //  let lastName = $(this).attr('data-lastName');
-        //  $('#id').val(id);
-        // });
-        // End Delete Record
-
-        // Start MapModal
-        // $(document).on('click','.mapbtn',function(){
-        //   let id = $(this).attr('data-id');
-        //   let firstName = $(this).attr('data-firstName');
-        //   let lastName = $(this).attr('data-lastName');
-        //   $('#id').val(id);
-        // });
-        // End Delete Record
-        
-      });
-    </script>
-
-      @yield('script')
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    
+    @yield('script')
   </body>
 </html>
 

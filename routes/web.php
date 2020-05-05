@@ -20,10 +20,11 @@ Route::get('/', 'ContactController@index')->name('contacts.index');
 // Blade Routes
 Route::get('/search', 'ContactController@search')->name('contacts.search');
 Route::get('/postSearch', 'ContactController@postSearch')->name('contacts.postSearch');
-Route::get('/sort/asc/{field}', 'ContactController@sortUp')->name('contacts.sortUp');
-Route::get('/sort/desc/{field}', 'ContactController@sortDown')->name('contacts.sortDown');
-Route::get('/sort/{field}/{currentField}/{dir}', 'ContactController@sort')->name('contacts.sort');
+// Route::get('/sort/asc/{field}', 'ContactController@sortUp')->name('contacts.sortUp');
+// Route::get('/sort/desc/{field}', 'ContactController@sortDown')->name('contacts.sortDown');
+// Route::get('/sort/{field}/{currentField}/{dir}', 'ContactController@sort')->name('contacts.sort');
 Route::get('/details/{column}', 'addressController@details')->name('addresses.details');
+Route::get('/show/{id}', 'contactController@show')->name('contacts.show');
 
 // Modal routes
 Route::get('/edit', 'ContactController@edit')->name('contacts.edit');
