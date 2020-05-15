@@ -102,7 +102,7 @@
                 </tbody>
             </table>
         </div>
-        {!! $contacts->appends(\Request::except('page'))->render() !!}
+        {!! $contacts->appends(\Request::except('page'))->links() !!}
         {{-- {{ $contacts->links() }} note to self, this is the same as the code above --}}
     </div>
     {{-- @endif --}}
