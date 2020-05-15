@@ -1,3 +1,4 @@
+{{-- 
 @extends('layouts.master')
 
 @section('content')
@@ -28,6 +29,7 @@
         @foreach ($contacts as $key => $value)
             <tr class="row" style="text-align:center; margin-top:5px;">
                 {{--  Need to add in sort functions for each catagory --}}
+                {{--
                 <td class="col-sm-1">{{$value->firstName}}</td>
                 <td class="col-sm-1">{{$value->lastName}}</td>
                 <td class="col-sm-2">{{$value->email}}</td>
@@ -51,3 +53,4 @@
     {{ $contacts->links() }}
 </div>
 @endsection 
+--}}

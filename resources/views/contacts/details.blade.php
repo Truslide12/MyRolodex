@@ -42,70 +42,71 @@
             </div>
         </div>
     </div>
-        <table class="table-hover w-auto table" style="border-collapse: separate;">
-            <thead class="thead-dark">
-                <tr class="row" style="text-align:center">
-                    <th class="col-sm-1">Type</th>
-                    <th class="col-sm-1">Number</th>
-                    <th class="col-sm-3">Street</th>
-                    <th class="col-sm-2">City</th>
-                    <th class="col-sm-1">State</th>
-                    <th class="col-sm-1">Zip</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                    <th>Map</th>
-                </tr>
-            </thead>
-            <tbody>
-            @foreach($contact->addresses as $row)
-                <tr class="row" style="text-align:center">
-                    <td class="col-sm-1">{{ $row->type}}</td>
-                    <td class="col-sm-1">{{ $row->number}}</td>
-                    <td class="col-sm-3">{{ $row->street}}</td>
-                    <td class="col-sm-2">{{ $row->city}}</td>
-                    <td class="col-sm-1">{{ $row->state}}</td>
-                    <td class="col-sm-1">{{ $row->zip}}</td>
-                    <td class="col-sm-3">
-                        {{-- <a class="btn btn-sm btn-warning" href="{{ route('addresses.edit', $row->id)}}">Edit</a> --}}
-                        <a class="btn btn-warning editAddress" 
+    <div class="row">   
+        <div class="table-responsive">
+            <table class="table-hover w-auto table">
+                <thead class="thead-dark">
+                    <tr style="text-align:center">
+                        <th>Type</th>
+                        <th>Number</th>
+                        <th>Street</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>Map</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach($contact->addresses as $value)
+                    <tr style="text-align:center">
+                        <td>{{ $value->type}}</td>
+                        <td>{{ $value->number}}</td>
+                        <td>{{ $value->street}}</td>
+                        <td>{{ $value->city}}</td>
+                        <td>{{ $value->state}}</td>
+                        <td>{{ $value->zip}}</td>
+                        <td>
+                            {{-- <a class="btn btn-sm btn-warning" href="{{ route('addresses.edit', $row->id)}}">Edit</a> --}}
+                            <a class="btn btn-warning editAddress" 
+                                data-toggle="modal" 
+                                data-target="#editAddressModal"
+                                data-id="{{ $value->id }}"
+                                data-firstName="{{ $value->type }}"
+                                data-lastName="{{ $value->number }}"
+                                data-email="{{ $value->city }}"
+                                data-phone="{{ $value->state }}"
+                                data-birthday="{{ $value->zip }}">Edit
+                            </a> 
+                        </td>
+                        <td>
+                            <a href="#" 
+                            data-id={{$value->id}}
+                            data-firstName={{$value->firstName}}
+                            data-lastName={{$value->lastName}}
+                            class="btn btn-danger deleteAddres" 
                             data-toggle="modal" 
-                            data-target="#editAddressModal"
-                            data-id="{{ $value->id }}"
-                            data-firstName="{{ $value->type }}"
-                            data-lastName="{{ $value->number }}"
-                            data-email="{{ $value->city }}"
-                            data-phone="{{ $value->state }}"
-                            data-birthday="{{ $value->zip }}"
-                            >
-                            Edit
-                        </a> 
-                    </td>
-                    <td>
-                        <a href="#" 
-                        data-id={{$value->id}}
-                        data-firstName={{$value->firstName}}
-                        data-lastName={{$value->lastName}}
-                        class="btn btn-danger deleteAddres" 
-                        data-toggle="modal" 
-                        data-target="#deleteAddressModal">
-                        Delete</a>
-                        {{-- <form action="{{ route('addresses.destroy', $row->id) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form> --}}
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-primary mapbtn" data-toggle="modal" data-target="#mapModal">
-                                Map
-                            </button>
-                        {{-- <td><a class="btn btn-sm btn-warning" href="{{ route('contacts.map', $row->id)}}">Edit</a></td> --}}
-                     </td>
-                </tr>
-            </tbody>
-            @endforeach
-        </table>
-
+                            data-target="#deleteAddressModal">
+                            Delete</a>
+                            {{-- <form action="{{ route('addresses.destroy', $row->id) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form> --}}
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary mapbtn" data-toggle="modal" data-target="#mapModal">
+                                    Map
+                                </button>
+                            {{-- <td><a class="btn btn-sm btn-warning" href="{{ route('contacts.map', $row->id)}}">Edit</a></td> --}}
+                        </td>
+                    </tr>
+                </tbody>
+                @endforeach
+            </table>
+        </div>
+    </div>
 {{-- ############################################ Modals ############################################# --}}
 <!-- Edit Address Modal -- (To be added later once calendar is working) -->
     <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
@@ -120,7 +121,7 @@
                 <form action="/contacts" method="PUT" id="editForm">
                 <div class="modal-body">
                     @crsf
-                    {{ Form::model($contact,['route'=>['ADDRESSES.update', 'id'],'method'=>'PATCH']) }}
+                    {{ Form::model($contact,['route'=>['addresses.update', 'id'],'method'=>'PATCH']) }}
                     @include('contacts.form_address')
                     {{ Form::close() }}
                 </div>
@@ -183,9 +184,8 @@
             </div>
         </div>
     </div>   
-<!-- End Map Modal -->--}}
+{{-- End Map Modal --}}
 {{-- ########################################## End Modals ########################################### --}}
 
-    </div>
 </div>
-    @endsection
+@endsection
