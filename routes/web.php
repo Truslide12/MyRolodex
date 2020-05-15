@@ -20,18 +20,16 @@ Route::get('/', 'ContactController@index')->name('contacts.index');
 // Blade Routes
 Route::get('/search', 'ContactController@search')->name('contacts.search');
 Route::get('/postSearch', 'ContactController@postSearch')->name('contacts.postSearch');
-// Route::get('/sort/asc/{field}', 'ContactController@sortUp')->name('contacts.sortUp');
-// Route::get('/sort/desc/{field}', 'ContactController@sortDown')->name('contacts.sortDown');
-// Route::get('/sort/{field}/{currentField}/{dir}', 'ContactController@sort')->name('contacts.sort');
-Route::get('/details/{column}', 'addressController@details')->name('addresses.details');
+Route::get('/details/{id}', 'addressController@details')->name('addresses.details');
 Route::get('/show/{id}', 'contactController@show')->name('contacts.show');
 
 // Modal routes
 Route::get('/edit', 'ContactController@edit')->name('contacts.edit');
-Route::get('/delete', 'ContactController@delete')->name('contacts.delete');
+Route::get('/delete/{id}', 'ContactController@postDelete')->name('contacts.postDelete');
 
 // MySQL data routes
 Route::get('/createAddress', 'ContactController@createAddress')->name('contacts.createAddress');
 Route::post('/storeAddress/{contact_id}', 'AddressController@store')->name('addresses.store');
+Route::post('/updateAddress/{contact_id}', 'AddressController@edit')->name('addresses.store');
 Route::resource('contacts', 'ContactController');
 Route::resource('addresses', 'AddressController');

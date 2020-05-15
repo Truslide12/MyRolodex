@@ -101,7 +101,11 @@
                 @endif
                 </tbody>
             </table>
-            {!! $contacts->appends(\Request::except('page'))->render() !!}
+        </div>
+        {!! $contacts->appends(\Request::except('page'))->render() !!}
+        {{-- {{ $contacts->links() }} note to self, this is the same as the code above --}}
+    </div>
+    {{-- @endif --}}
 {{-- ############################################ Modals ############################################# --}}
         <!-- Edit Modal -- (To be added later once calendar is working) -->
             {{-- <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
@@ -160,26 +164,24 @@
 
 {{-- ########################################## End Modals ########################################### --}}
 
-        </div>
-    {{-- @endif --}}
-    </div>
-    {{ $contacts->links() }}
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function(){
-        
-        $('#deleteOK_button').on('click',function(){
-            var rid = $(this).attr('rid');
-            
-            $.post('{{ url('contacts/delete') }}', {
-                '_token':'{{ csrf_token() }}',
-                'rid' : rid,
-            }, function(data){
-                console.log(data);
-            }, 'json');
-        });
-    });
-</script>
+@endsection
 
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+            $('#deleteOK_button').on('click',function(){
+                var rid = $(this).attr('data-id');
+                
+                $.post('{{ url('contacts/delete') }}', {
+                    '_token':'{{ csrf_token() }}',
+                    'rid' : rid,
+                }, function(data){
+                    console.log(data);
+                }, 'json');
+            });
+        });
+    </script>
 @endsection 

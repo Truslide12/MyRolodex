@@ -78,10 +78,14 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Contact $contact)
+    public function show($id)
     {
-        return view('contacts.details')
-                ->with('contact', $contact);
+        $contact = Contact::find($id);
+        if($contact) { 
+            return view('contacts.details')->with('contact', $contact);
+        } else {
+            return redirect('contacts');
+        }
     }
 
     /**
@@ -128,7 +132,7 @@ class ContactController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        // dump($request);
+        dump($request);
         // verify ajax request
         $id = $request->id;
         // Need to find all addresses with the contacdt Id and delete them.
@@ -211,44 +215,4 @@ class ContactController extends Controller
 
         return view('contacts.createAddress')->with('contact_id', $request->contact_id);
     }
-
-    // public function sort($field, $currentField , $dir)
-    // {
-    //     $validFields = Contact::getFields();
-        
-    //     if( in_array($field, $validFields) && in_array($currentField, $validFields) && in_array($dir, ['asc','desc']) ) {
-            
-    //         if ($field !== $currentField) 
-    //         {
-    //             return redirect()->route('contacts.sortUp', ['field' => $field]);
-    //         }
-    //         else if ($dir === 'asc')
-    //         {
-    //             return redirect()->route('contacts.sortDown', ['field' => $field]);
-    //         }
-    //         else if ($dir === 'desc')
-    //         {
-    //             return redirect()->route('contacts.sortUp', ['field' => $field]);
-    //         }
-    //         else {
-    //             print("Error: Invalid field and/or direction to sort by");
-    //         }
-    //     }
-    // }
-
-    // public function sortUp ($field)
-    // {
-    //     $data = Contact::orderBy($field, 'asc')->paginate(10);
-    //     $currentField = $field;
-    //     $dir = 'asc';
-    //     return view('contacts.sort', ['contacts' => $data, 'field' => $field, 'currentField' => $currentField, 'dir' => $dir]);
-    // }
-
-    // public function sortDown ($field)
-    // {
-    //     $data = Contact::orderBy($field, 'desc')->paginate(10);
-    //     $currentField = $field;
-    //     $dir = 'desc';
-    //     return view('contacts.sort', ['contacts' => $data, 'field' => $field, 'currentField' => $currentField, 'dir' => $dir]);
-    // }
 }
