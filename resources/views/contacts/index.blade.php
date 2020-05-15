@@ -101,11 +101,10 @@
                 @endif
                 </tbody>
             </table>
+            {!! $contacts->appends(\Request::except('page'))->links() !!}
         </div>
-        {{-- {!! $contacts->appends(\Request::except('page'))->links() !!} --}}
-        {{-- note to self, this is the same as the code above --}}
+        {{-- {{ $contacts->links() }} note to self, this is the same as the code above --}}
     </div>
-    {{ $contacts->links() }} 
     {{-- @endif --}}
 {{-- ############################################ Modals ############################################# --}}
         <!-- Edit Modal -- (To be added later once calendar is working) -->
