@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Contact;
 
 
+
 class ContactController extends Controller
 {
     /**
@@ -14,10 +15,17 @@ class ContactController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $contacts = Contact::sortable('firstName')->paginate(10);
-        return view('contacts.index', ['contacts' => $contacts]);
+        $query = $request->search;
+        if (!$query)
+        {
+            $contacts = Contact::sortable('firstName')->paginate(10);
+            return view('contacts.index', ['contacts' => $contacts]);
+        } else{
+            $contacts = Contact::search($request->search)->paginate(10);
+            return view('contacts.index', ['contacts' => $contacts]);
+        }
     }
 
     /**
@@ -132,7 +140,7 @@ class ContactController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        dump($request);
+        // dump($request);
         // verify ajax request
         $id = $request->id;
         // Need to find all addresses with the contacdt Id and delete them.
@@ -190,22 +198,16 @@ class ContactController extends Controller
 
     }
 
-    public function search() 
-    {
-        return view('contacts.search');   
-    }
+    // public function search() 
+    // {
+    //     return view('contacts.search');   
+    // }
 
-    public function postSearch(Request $request)
+    public function search(Request $request)
     {
-        // Searching Contacts
-        $q = $request->input('search') . '%'; // NOTE: Append wildcard symbol "%"
-
-        $contacts = Contact::where('firstName','like',$q)
-              ->orWhere('lastName','like',$q)
-              ->orWhere('email','like',$q)
-              ->orWhere('phone','like',$q)
-              ->get();
-        return view('contacts.postSearch', ['contacts' => $contacts]);
+        // dump($request->all());
+        $contacts = Contact::search($request->search)->paginate(10);
+        return view('contacts.index', ['contacts' => $contacts]);
     }
 
     public function createAddress (Request $request)

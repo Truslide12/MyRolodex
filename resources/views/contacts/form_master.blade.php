@@ -28,7 +28,7 @@
     </div>
   </div>
 
-  <div>
+  {{-- <div>
     <p style="margin-top: 20px">Birthday</p>
 <div class="form-group">
       <label class="col-md-4 col-sm-12 control-label" for="day">Day</label>
@@ -66,7 +66,15 @@
             @for ($i = $currentYear; $i > ($currentYear-100); $i--)
                 <option value="{{ $i }}" {{ ($currentYear==$i) ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
-        </select>
+        </select> --}}
+        <div class="panel panel-primary">
+
+            <div class="panel-heading">Birthday</div>
+            <div class="panel-body" >
+                {!! $calendar->calendar() !!}
+                {!! $calendar->script() !!}
+            </div>
+          </div>
       </div>
     </div>
   </div>

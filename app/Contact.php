@@ -5,10 +5,13 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable;
 use Kyslik\ColumnSortable\Sortable;
+use Laravel\Scout\Searchable;
 
 class Contact extends Model
 {
     use Sortable;
+
+    use Searchable;
 
     protected $fillable = [ 'firstName', 'lastName', 'email', 'phone', 'birthday' ];
 
@@ -22,5 +25,12 @@ class Contact extends Model
     static function getFields()
     {
         return [ 'firstName', 'lastName', 'email', 'phone', 'birthday' ];
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        return $array;
     }
 }
