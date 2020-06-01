@@ -6,17 +6,15 @@
 <div class="container">
     <div style="margin:10px">
     </div>
-    <div class="row">
+    <div class="row mb-5">
         <div class="col-sm-10">
-            <div class="form-group {{ $errors->has('search') ? 'has-error' : "" }}">
-                    {{ Form::text('search',NULL, ['class'=>'form-control', 'id'=>'search', 'placeholder'=>'search contacts...']) }}
-                    {{ $errors->first('search', '<p class="help-block">:message</p>') }}
-            </div>
-        </div>
-        <div class="col-sm-2">
-            <div class="form-group">
-                    {{ Form::button(isset($model)? 'Find' : 'search' , ['class'=>'btn btn-success', 'type'=>'submit']) }}
-            </div>
+            <form action="{{route('contacts.index')}}" method="GET">
+                <div class="form-group">
+                    <input type="text" name="search" class="form-control" value="{{request()->search}}">
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-success">Search</button>
+                </div>
         </div>
     </div>
     <div class="row">
@@ -139,13 +137,13 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete Contact</h5>
+                            <h5 class="modal-title" id="delete  ModalLabel">Delete Contact</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                        <form action="{{ route('contacts.destroy', 'id') }}" method="post">
+                        <form action="{{ route('contacts.postDelete', 'id') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input id="id" name="id" type="hidden">
@@ -175,7 +173,7 @@
             $('#deleteOK_button').on('click',function(){
                 var rid = $(this).attr('data-id');
                 
-                $.post('{{ url('contacts/delete') }}', {
+                $.post('{{ url('contacts/destroy') }}', {
                     '_token':'{{ csrf_token() }}',
                     'rid' : rid,
                 }, function(data){
