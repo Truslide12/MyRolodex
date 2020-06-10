@@ -18,8 +18,6 @@ Route::get('/', 'ContactController@index')->name('contacts.index');
 // Auth::routes();
 
 // Blade Routes
-Route::get('/search', 'ContactController@search')->name('contacts.search');
-Route::get('/postSearch', 'ContactController@postSearch')->name('contacts.postSearch');
 Route::get('/details/{id}', 'addressController@details')->name('addresses.details');
 Route::get('/show/{id}', 'contactController@show')->name('contacts.show');
 

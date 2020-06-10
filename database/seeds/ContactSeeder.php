@@ -11,6 +11,11 @@ class ContactSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Contact::class, 50)->create();
+        factory(App\Contact::class, 50)->create()
+            ->each(function($contact) {
+                $contact->addresses()->save(
+                    (factory(App\Address::class)->make())
+                );
+        });
     }
-}
+} 

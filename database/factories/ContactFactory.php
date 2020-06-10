@@ -10,7 +10,7 @@ $factory->define(Contact::class, function (Faker $faker) {
         'firstName' => $faker->firstName,
         'lastName' => $faker->lastName,
         'email' => $faker->unique()->email,
-        'phone' => $faker->phone,
-        'birthday' => $faker->birthday,
+        'phone' => $faker->phoneNumber,
+        'birthday' => $faker->date($format = 'Y-m-d', $max = 'now')
     ];
-});
+}); 

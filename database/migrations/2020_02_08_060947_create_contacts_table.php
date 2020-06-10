@@ -19,7 +19,7 @@ class CreateContactsTable extends Migration
             $table->string('lastName');
             $table->string('email');
             $table->string('phone');
-            $table->string('birthday'); // needs to be changed to a proper date type
+            $table->date('birthday'); // needs to be changed to a proper date type
             $table->timestamps();
         });
     }
