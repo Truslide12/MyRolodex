@@ -27,6 +27,7 @@ Route::get('/delete/{id}', 'ContactController@postDelete')->name('contacts.postD
 
 // MySQL data routes
 Route::get('/createAddress', 'ContactController@createAddress')->name('contacts.createAddress');
+Route::get('/editAddress/{id}', 'ContactController@editAddress')->name('contacts.editAddress');
 Route::post('/storeAddress/{contact_id}', 'AddressController@store')->name('addresses.store');
 Route::post('/updateAddress/{contact_id}', 'AddressController@edit')->name('addresses.store');
 Route::resource('contacts', 'ContactController');

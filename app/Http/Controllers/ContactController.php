@@ -81,7 +81,7 @@ class ContactController extends Controller
       }
 
     /**
-     * Display the specified resource.
+     * Display the selected contact resource
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -89,6 +89,7 @@ class ContactController extends Controller
     public function show($id)
     {
         $contact = Contact::find($id);
+        // dump($contact->addresses);
         if($contact) { 
             return view('contacts.details')->with('contact', $contact);
         } else {
@@ -198,23 +199,39 @@ class ContactController extends Controller
 
     }
 
-    // public function search() 
-    // {
-    //     return view('contacts.search');   
-    // }
-
-    public function search(Request $request)
-    {
-        // dump($request->all());
-        $contacts = Contact::search($request->search)->paginate(10);
-        return view('contacts.index', ['contacts' => $contacts]);
-    }
-
     public function createAddress (Request $request)
     {
-        // dump($request->toArray());
-        // dump($request->contact_id);
-
         return view('contacts.createAddress')->with('contact_id', $request->contact_id);
+    }
+
+    public function editAddress ($id)
+    {
+        $address = Address::find($id);
+        // dump($address);
+        if($address) {            
+            return view('contacts.editAddress')->with('address',$address);   
+        } else {
+            return redirect('contacts');
+        }
+    }
+
+       /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAddress(Request $request, $id)
+    {   // validation failing need to come back to fix this
+        $request->validate([
+            'firstName'=>'required|string|max:255',
+            'lastName'=>'required|string|max:255',
+            'email'=>'required|string|max:255',
+            'phone'=>'nullable|string|max:255',
+            'birthday'=>'nullable|string|max:255',
+          ]);
+        Address::find($id)->update($request->all());
+        return redirect()->route('contacts.index')->with('success','Contact update success');
     }
 }

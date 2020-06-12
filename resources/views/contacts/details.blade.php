@@ -41,6 +41,7 @@
                 {{ $contact->birthday}}
             </div>
         </div>
+        <div>{{$contact->id}}</div>
     </div>
     <div class="row">   
         <div class="table-responsive">
@@ -67,9 +68,10 @@
                         <td>{{ $value->city}}</td>
                         <td>{{ $value->state}}</td>
                         <td>{{ $value->zip}}</td>
+                        {{-- <td>{{$value->id}}</td> --}}
                         <td>
-                            {{-- <a class="btn btn-sm btn-warning" href="{{ route('addresses.edit', $row->id)}}">Edit</a> --}}
-                            <a class="btn btn-warning editAddress" 
+                            <a class="btn btn-sm btn-warning" href="{{ route('contacts.editAddress', ['id'=>$value->id])}}">Edit</a>
+                            {{-- <a class="btn btn-warning editAddress" 
                                 data-toggle="modal" 
                                 data-target="#editAddressModal"
                                 data-id="{{ $value->id }}"
@@ -78,7 +80,7 @@
                                 data-email="{{ $value->city }}"
                                 data-phone="{{ $value->state }}"
                                 data-birthday="{{ $value->zip }}">Edit
-                            </a> 
+                            </a>  --}}
                         </td>
                         <td>
                             <a href="#" 
@@ -109,7 +111,7 @@
     </div>
 {{-- ############################################ Modals ############################################# --}}
 <!-- Edit Address Modal -- (To be added later once calendar is working) -->
-    <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
+    {{-- <div class="modal fade" id="editAddressModal" tabindex="-1" role="dialog" aria-labelledby="Delete" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -121,7 +123,7 @@
                 <form action="/contacts" method="PUT" id="editForm">
                 <div class="modal-body">
                     @crsf
-                    {{ Form::model($contact,['route'=>['addresses.update', 'id'],'method'=>'PATCH']) }}
+                    {{ Form::model($address,['route'=>['contacts.editAddress', $address->id],'method'=>'PATCH']) }}
                     @include('contacts.form_address')
                     {{ Form::close() }}
                 </div>
@@ -132,7 +134,7 @@
                 </form>
             </div>
         </div>
-    </div>  
+    </div>   --}}
 <!-- End Edit Modal -->
 
 <!-- Delete Address Warning Modal -->

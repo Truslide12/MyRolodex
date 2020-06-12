@@ -15,7 +15,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        $addresses = Address::all();//->paginate(5);
+        $addresses = Address::all();//->paginate(5); 
         return view('addresses.index', ['addresses' => $addresses]);
     }
 
@@ -81,9 +81,9 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($contact_id)
     {
-        $address = Address::find($id);
+        $address = Address::find($contact_id);
         return view('addresses.edit',compact('address'));
     }
 
@@ -94,8 +94,9 @@ class AddressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id = $request->id;
         $request->validate([
             'number'    => 'integer',
             'street'    => 'required|string|max:255',
